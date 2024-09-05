@@ -16,8 +16,10 @@ public class UserController {
 
     @GetMapping("/user")
     public String userPage(Model model, Authentication authentication) {
-        User user = (User) authentication.getPrincipal();
+        String username = authentication.getName();
+        User user = userService.findByUsername(username);
         model.addAttribute("user", user);
         return "/user";
     }
+
 }

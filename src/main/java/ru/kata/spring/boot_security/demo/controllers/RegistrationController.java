@@ -13,10 +13,12 @@ import ru.kata.spring.boot_security.demo.Services.RegistrationService;
 import ru.kata.spring.boot_security.demo.Services.UserService;
 import ru.kata.spring.boot_security.demo.models.User;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 @Controller
 public class RegistrationController {
-    @Autowired
-    private UserService userService;
+
     @Autowired
     private RegistrationService registrationService;
 
@@ -38,6 +40,15 @@ public class RegistrationController {
             return "auth/registration";
 
         registrationService.save(user);
-        return "redirect:auth/login";
+        return "redirect:/login";
+    }
+
+    @PostMapping("/logout")
+    public String logout(HttpServletRequest httpServletRequest) {
+        HttpSession session = httpServletRequest.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
+        return "redirect:/login";
     }
 }

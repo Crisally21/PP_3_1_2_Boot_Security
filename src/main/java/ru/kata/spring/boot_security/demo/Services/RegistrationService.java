@@ -7,7 +7,11 @@ import ru.kata.spring.boot_security.demo.models.Role;
 import ru.kata.spring.boot_security.demo.models.User;
 import ru.kata.spring.boot_security.demo.repositories.UserRepository;
 
+import javax.annotation.PostConstruct;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
 
 
 @Service
@@ -21,11 +25,30 @@ public class RegistrationService {
     public RegistrationService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
-    @Transactional
-    public void save(User user) {
-        Role userRole = roleService.findByName("ROLE_USER");
-        user.setRoles(Collections.singleton(userRole));
-        userRepository.save(user);
+
+@Transactional
+public void save(User user) {
+    user.getRoles().add(roleService.findByName("ROLE_USER"));
+    userRepository.save(user);
+}
+
+    @PostConstruct
+    public void initAdminUser() {
+        User adminUser = userRepository.findByUsername("admin");
+
+
+        if (adminUser == null) {
+            User admin = new User();
+            admin.setUsername("admin");
+            admin.setPassword("admin");
+            admin.setName("Administrator");
+            admin.setAge(30);
+
+            Set<Role> roles = new HashSet<>();
+            roles.add(roleService.findByName("ROLE_ADMIN"));
+            admin.setRoles(roles);
+            save(admin);
+        }
     }
 
 }

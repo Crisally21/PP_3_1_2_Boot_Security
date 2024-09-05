@@ -17,20 +17,16 @@ public class RoleService {
     @PostConstruct
     public void initRoles() {
         List<Role> roles = roleRepository.findAll();
-        if (roles.stream().noneMatch(role -> role.getName().equals("ADMIN"))) {
-            roleRepository.save(new Role("ADMIN"));
+        if (roles.stream().noneMatch(role -> role.getName().equals("ROLE_ADMIN"))) {
+            roleRepository.save(new Role("ROLE_ADMIN"));
         }
-        if (roles.stream().noneMatch(role -> role.getName().equals("USER"))) {
-            roleRepository.save(new Role("USER"));
+        if (roles.stream().noneMatch(role -> role.getName().equals("ROLE_USER"))) {
+            roleRepository.save(new Role("ROLE_USER"));
         }
     }
 
     public Role findByName(String name) {
         Role role = roleRepository.findByName(name);
-        if (role == null) {
-            role = new Role();
-            roleRepository.save(role);
-        }
 
         return role;
     }

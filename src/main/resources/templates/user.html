@@ -9,6 +9,8 @@
 <p th:text="'Username: ' + ${user.getUsername()}"></p>
 <p th:text="'Name: ' + ${user.getName()}"></p>
 <p th:text="'Age: ' + ${user.getAge()}"></p>
-<a href="/logout">Logout</a>
+<form th:action="@{/logout}" method="post">
+    <button type="submit">Logout</button>
+</form>
 </body>
 </html>
