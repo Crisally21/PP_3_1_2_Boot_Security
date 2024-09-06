@@ -6,7 +6,7 @@
     <title>New User</title>
 </head>
 <body>
-<form th:action="@{/crud}" th:object="${user}" method="POST">
+<form th:action="@{/edit}" th:object="${user}" method="POST">
     <input name="id" th:field="*{id}" th:value="${user.id}" hidden="hidden">
     <label for="name">Name</label>
     <input type="text" id="name" th:field="*{name}" th:value="${user.name}" required>

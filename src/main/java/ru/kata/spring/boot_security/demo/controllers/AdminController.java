@@ -31,7 +31,7 @@ public class AdminController {
         return "crud/user-create";
     }
 
-    @PostMapping
+    @PostMapping("/new")
     public String createUser(@ModelAttribute("user") User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "crud/user-create";
