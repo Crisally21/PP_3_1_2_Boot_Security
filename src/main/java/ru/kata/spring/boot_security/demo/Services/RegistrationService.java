@@ -47,7 +47,7 @@ public void save(User user) {
             Set<Role> roles = new HashSet<>();
             roles.add(roleService.findByName("ROLE_ADMIN"));
             admin.setRoles(roles);
-            save(admin);
+            userRepository.save(admin);
         }
     }
 
