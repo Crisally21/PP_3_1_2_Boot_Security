@@ -31,6 +31,7 @@ public class User implements UserDetails {
     private Set<Role> roles = new HashSet<>();
 
     public User() {
+        this.age = 0;
     }
 
     public User(int age, String name) {
